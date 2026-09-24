@@ -1,0 +1,6 @@
+shutil
+openpyxl
+pandas
+paramiko
+smbprotocol
+requests
