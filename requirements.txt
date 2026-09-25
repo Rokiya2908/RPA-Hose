@@ -1,4 +1,3 @@
-shutil
 openpyxl
 pandas
 paramiko

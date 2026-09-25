@@ -38,6 +38,8 @@ def main():
     log_file_location = os.path.join(log_location,"log.txt")
     local_input_location = os.path.join(bot_location,"input")
     local_output_location = os.path.join(bot_location,"output")
+    api_key = config_data["apikey"]
+    api_url = config_data["apiurl"]
 
     #Creating folder
     create_folder(log_location)
@@ -63,13 +65,15 @@ def main():
                                      input_location,log_file_location)
         write_log(log_file_location,
             f"Total number of file has been copied from {input_location} is {len(file_copied)}")
+        
+        
         copy_file_from_local_to_sftp(config_data["SFTPHost"],
                                      config_data["username"],
                                      config_data["password"],
                                      local_output_location,
                                      output_location
                                      ,log_file_location)
-    elif(download_option == "local"):
+    elif(download_option == "local" or download_option == "shared"):
         file_copied = copy_file_from_local_to_local(input_location,local_input_location,log_file_location)
         write_log(log_file_location,
             f"Total number of file has been copied from {input_location} is {len(file_copied)}")
