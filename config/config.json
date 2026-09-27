@@ -1,7 +1,12 @@
 {
     "BotFolderLocation" : "D:\\RPA-Hose\\",
+    "apiurl" : "https://api.sdtech.vn/t/hose.sdtech.vn/api/hose/1.0/bieu-mau/10/upload",
+    "token" : "eyJ4NXQiOiJJYjVmaVExeS1jblRVUXZGVk4wZmdPT2ZwelEiLCJraWQiOiJNR1poT0dZNVltWTVObVJpWTJZM09XUTNaak13T1dZNU9XWXlORGc1T0RjME5qRmpOR1F5TURVMk5UTmlabUU0WlRreVpESmlNVGMxWm1KaU5UWmpaUV9SUzI1NiIsInR5cCI6ImF0K2p3dCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhZG1pbl9oYSIsImF1dCI6IkFQUExJQ0FUSU9OX1VTRVIiLCJpc3MiOiJodHRwczpcL1wvZGFuZ25oYXAuc2R0ZWNoLnZuXC90XC9ob3NlLnNkdGVjaC52blwvb2F1dGgyXC90b2tlbiIsImNsaWVudF9pZCI6IlJMbzBBMjJac0FlaVNGYmlVVlZMMkRqaFowY2EiLCJhdWQiOiJSTG8wQTIyWnNBZWlTRmJpVVZWTDJEamhaMGNhIiwibmJmIjoxNzkwMjk5MzM3LCJhenAiOiJSTG8wQTIyWnNBZWlTRmJpVVZWTDJEamhaMGNhIiwib3JnX2lkIjoiMzk4ZDAzMWQtNTZiNi00MzYxLWFkZmEtOGYzOTMxMjAyZTlkIiwic2NvcGUiOiJlbWFpbCBvcGVuaWQgcHJvZmlsZSIsImV4cCI6MTc5MDMzNTMzNywib3JnX25hbWUiOiJob3NlLnNkdGVjaC52biIsImlhdCI6MTc5MDI5OTMzNywianRpIjoiYWI0OGZiMzMtNGUyYS00OGNiLWE0NzYtZWYzN2MzYzAyYTVhIiwib3JnX2hhbmRsZSI6Imhvc2Uuc2R0ZWNoLnZuIn0.XJ8MkGF8TvOH6FNDWNNFiFg-43mAcVjUG2Pxv2nv7ulLdietzg0CCBNHnXMXZ2HJGPlnmSryNHfjjlyykAORXt9QiTFPgEYqjGzz152qSY6anmWfwO6g97N3sP5q9cufh9n9-Fwv5ArsP1sMEcWwt0Lh8sdL2g21_xRhfYIUxeC1vp4ndN_4ydX82jootgzKNRjuU1UoB8aDxdLHVInAVHDMByjXsdKkhaeQ99EhSeL_IuJB7owGhd_VQNho-0Acy-75ZTOjQYzl_9oLJHEaDPSwhYreKehW2V1Uo9BEpT3XvJmnFl6djpb9U2YcOqGJmxK861Ez8DHsWONatWREmQ",
     "SFTPHost" : "N/A",
     "username" : "N/A",
-    "password" : "N/A"
+    "password" : "N/A",
+    "SharedHost" : "N/A",
+    "SharedUsername" : "N/A",
+    "SharedPassword" : "N/A"
 
 }

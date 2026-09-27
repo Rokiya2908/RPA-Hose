@@ -5,12 +5,12 @@ import time
 
 from common import *
 
-def connect_to_sftp(sftp_host,username,password,log_location):
+def connect_to_sftp(sftp_host,username,password,log_location,sftp_port=22):
     sftp_connected = False
     retry_connection_count = 0
     while(not sftp_connected and retry_connection_count < 5):
         try: 
-            transport = paramiko.Transport((sftp_host, 22))
+            transport = paramiko.Transport((sftp_host, sftp_port))
             transport.connect(username=username, password=password)
             if(transport.is_active):
                 write_log(log_location,f"SFTP connection established {sftp_host},{username},{password}")
@@ -23,8 +23,8 @@ def connect_to_sftp(sftp_host,username,password,log_location):
             retry_connection_count += 1
     return False,None
 
-def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_path,log_location):
-    connection_alive, transport = connect_to_sftp(sftp_host,username,password,log_location)
+def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_path,log_location,sftp_port=22):
+    connection_alive, transport = connect_to_sftp(sftp_host,username,password,log_location,sftp_port)
     files_downloaded = []
     if(connection_alive):
         sftp = paramiko.SFTPClient.from_transport(transport)
@@ -58,8 +58,8 @@ def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_p
         transport.close()
     return files_downloaded        
 
-def copy_file_from_local_to_sftp(sftp_host,username,password,local_path,remote_path,log_location):
-    connection_alive, transport = connect_to_sftp(sftp_host,username,password,log_location)
+def copy_file_from_local_to_sftp(sftp_host,username,password,local_path,remote_path,log_location,sftp_port=22):
+    connection_alive, transport = connect_to_sftp(sftp_host,username,password,log_location,sftp_port)
     upload_successfully = False
     if(connection_alive):
         sftp = paramiko.SFTPClient.from_transport(transport)
