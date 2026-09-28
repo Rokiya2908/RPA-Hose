@@ -39,6 +39,7 @@ def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_p
         #Start checking and downloading the files to local
         for item in all_item:
             if(item.filename.endswith('.pdf')):
+                file_details = {}
                 try:
                     item_location = path.join(remote_path,item.filename)
                     item_local_path = path.join(local_path,item.filename)                
@@ -48,7 +49,12 @@ def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_p
                     time.sleep(1)
                     if(path.exists(item_local_path)):
                         write_log(log_location,f"Downloaded: {item.filename}")
-                        files_downloaded.append(item_local_path)
+                        file_details = {
+                            "originalPath" : item_location,
+                            "localPath" : item_local_path,
+                            "fileName" : item.filename
+                        }
+                        files_downloaded.append(file_details)
                     else:
                         write_log(log_location,f"Failed to download: {item.filename}")
                 except Exception as e:
@@ -58,21 +64,31 @@ def copy_file_from_sftp_to_local(sftp_host,username,password,remote_path,local_p
         transport.close()
     return files_downloaded        
 
-def copy_file_from_local_to_sftp(sftp_host,username,password,local_path,remote_path,log_location,sftp_port=22):
+def copy_file_from_local_to_sftp(sftp_host,username,password,files_downloaded,remote_path,log_location,sftp_port=22):
     connection_alive, transport = connect_to_sftp(sftp_host,username,password,log_location,sftp_port)
-    upload_successfully = False
-    if(connection_alive):
-        sftp = paramiko.SFTPClient.from_transport(transport)
-        sftp.put(local_path,remote_path)
-        time.sleep(1)
-        try:
-            sftp.stat(remote_path)
-            upload_successfully = True
-        except Exception as e:
-            write_log(log_location,f"Failed to upload: {local_path} due to : {e}")
-            write_log(log_location,f"Please take the file from {local_path} to see the result")
+    completed_remote_path = f"{remote_path}\\Completed\\{get_current_time_date()}"
+    sftp = paramiko.SFTPClient.from_transport(transport)
+    try:    
+        sftp.stat()
+        sftp.mkdir(completed_remote_path)
+    except Exception as e:
+        write_log(log_location,f"Folder {completed_remote_path} has been created")
 
-    return upload_successfully        
+    for file in files_downloaded:
+        original_path = file.get("originalPath")
+        final_completed_path = f"{completed_remote_path}\\{file.get("fileName")}" 
+        if(connection_alive):
+            try:
+                write_log(log_location,f"Move processed file to completed folder: from {original_path} to {final_completed_path}")
+                time.sleep(1)
+                sftp.put(original_path,final_completed_path)
+                time.sleep(1)
+                sftp.stat(final_completed_path)
+            except Exception as e:
+                write_log(log_location,f"Failed to copy to completed path: {original_path} due to : {e}")
+                write_log(log_location,f"Please move the file from {original_path} manually to prevent any duplication")
+        sftp.close()
+        transport.close()
 
         
 

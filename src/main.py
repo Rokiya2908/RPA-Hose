@@ -81,6 +81,7 @@ def main():
                                      sftp_password,
                                      input_location,
                                      local_input_location,log_file_location,sftp_port)
+        
     elif(download_option == "shared"):
         shared_host = args.host or config_data.get("SharedHost")
         if(str(shared_host).strip().upper() == "N/A"):
@@ -98,6 +99,7 @@ def main():
                                      local_input_location,log_file_location)
         if(shared_host):
             output_location = build_unc_path(shared_host,output_location)
+
     elif(download_option == "local"):
         file_copied = copy_file_from_local_to_local(input_location,local_input_location,log_file_location)
     else:
@@ -119,13 +121,21 @@ def main():
         copy_file_from_local_to_sftp(sftp_host,
                                      sftp_username,
                                      sftp_password,
-                                     local_output_location,
+                                     file_copied,
                                      output_location
                                      ,log_file_location,sftp_port)
-    else:
-        copy_result_file_from_local(local_output_location,output_location,log_file_location)
+    elif(download_option == "local"):
+        copy_result_file_from_local(file_copied,output_location,log_file_location)
+    elif(download_option == "shared"):
+        move_file_to_completed(shared_host,
+                               shared_port,
+                               shared_username,
+                               shared_password,
+                               input_location,
+                               file_copied,log_location)
 
-
+    write_log(log_file_location,
+            f"Bot finished processing for type {download_option}")
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,3 @@
-openpyxl
-pandas
 paramiko
 smbprotocol
 requests
